@@ -1,0 +1,29 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-card {
+  margin: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form mat-form-field {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+.main {
+  padding: 16px;
+}
