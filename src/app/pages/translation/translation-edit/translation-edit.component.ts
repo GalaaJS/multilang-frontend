@@ -15,6 +15,7 @@ export class TranslationEditComponent implements OnInit {
   model: TranslationModel;
   isEdit = false;
   error: string;
+  isAutoGenerate = false;
 
   formGroup = this.formBuilder.group({
     lang_id: [0, Validators.required],
@@ -48,6 +49,13 @@ export class TranslationEditComponent implements OnInit {
             this.formGroup.get('lang_id')?.setValue(this.langs[0].lang_id);
           }
         }
+      }
+    });
+
+    this.formGroup.get('value')?.valueChanges.subscribe((r) => {
+      if (this.isAutoGenerate) {
+        this.formGroup.get('key')?.setValue(this.generateSlug(r ?? ''));
+        console.log(this.generateSlug(r ?? ''));
       }
     });
   }
@@ -104,5 +112,47 @@ export class TranslationEditComponent implements OnInit {
         },
       });
     }
+  }
+
+  onAutoGenerateChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input) {
+      const isChecked = input.checked;
+      if (isChecked) {
+        this.isAutoGenerate = true;
+      } else {
+        this.isAutoGenerate = false;
+      }
+    }
+    console.log('isAutoGenerate', this.isAutoGenerate);
+  }
+
+  generateSlug(text: string, maxLength = 50) {
+    // Step 1: Slugify the text
+    let slug = text
+      .toString() // Ensure the input is a string
+      .toLowerCase() // Convert to lowercase
+      .trim() // Trim leading and trailing whitespace
+      .replace(/\s+/g, '_') // Replace spaces with -
+      .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+      .replace(/\-\-+/g, '_'); // Replace multiple hyphens with a single hyphen
+
+    // Step 2: Truncate the slug if it exceeds the maximum length
+    if (slug.length > maxLength) {
+      slug = slug.substring(0, maxLength).replace(/-+$/, ''); // Ensure no trailing hyphens
+    }
+
+    // Step 3: Append a unique identifier if necessary to ensure uniqueness
+    // const uniqueId = Date.now().toString(36); // Use a base36 timestamp for uniqueness
+    // if (slug.length + uniqueId.length + 1 <= maxLength) {
+    //   slug = `${slug}-${uniqueId}`;
+    // } else {
+    //   slug = `${slug.substring(
+    //     0,
+    //     maxLength - uniqueId.length - 1
+    //   )}-${uniqueId}`;
+    // }
+
+    return slug;
   }
 }
