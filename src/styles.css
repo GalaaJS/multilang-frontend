@@ -1,0 +1,7 @@
+@import "@ng-select/ng-select/themes/default.theme.css";
+@import "assets/css/tailwind.css";
+
+.datatable.invoice-table .bh-datatable .bh-pagination {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}

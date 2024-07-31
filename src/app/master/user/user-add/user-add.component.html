@@ -1,0 +1,129 @@
+<div>
+  <ul class="flex space-x-2 rtl:space-x-reverse">
+    <li>
+      <a routerLink="/user" class="text-primary hover:underline">Users</a>
+    </li>
+    <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+      <span>Add</span>
+    </li>
+  </ul>
+  <form class="space-y-5" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="flex pt-5 flex-col gap-2.5 xl:flex-row">
+      <div class="panel flex-1 px-0 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+        <div class="flex flex-wrap justify-between px-4">
+          <div class="w-full">
+            <div
+              class="flex items-center"
+              [ngClass]="
+                isSubmit
+                  ? form.controls['username'].errors
+                    ? 'has-error'
+                    : 'has-success'
+                  : ''
+              "
+            >
+              <label for="username" class="mb-0 flex-1 ltr:mr-2 rtl:ml-2"
+                >Username *</label
+              >
+              <div class="w-2/3">
+                <input
+                  id="username"
+                  type="text"
+                  placeholder="Enter username"
+                  class="form-input"
+                  formControlName="username"
+                />
+                <ng-container
+                  *ngIf="isSubmit && form.controls['username'].errors"
+                >
+                  <p class="mt-1 text-danger">Please fill the username</p>
+                </ng-container>
+              </div>
+            </div>
+
+            <div
+              class="mt-4 flex items-center"
+              [ngClass]="
+                isSubmit
+                  ? form.controls['password'].errors
+                    ? 'has-error'
+                    : 'has-success'
+                  : ''
+              "
+            >
+              <label for="password" class="mb-0 flex-1 ltr:mr-2 rtl:ml-2"
+                >Password *</label
+              >
+              <div class="w-2/3">
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Enter password"
+                  class="form-input"
+                  formControlName="password"
+                />
+                <ng-container
+                  *ngIf="isSubmit && form.controls['password'].errors"
+                >
+                  <p class="mt-1 text-danger">Please fill the password</p>
+                </ng-container>
+              </div>
+            </div>
+
+            <div
+              class="mt-4 flex items-center"
+              [ngClass]="
+                isSubmit
+                  ? form.controls['email'].errors
+                    ? 'has-error'
+                    : 'has-success'
+                  : ''
+              "
+            >
+              <label for="email" class="mb-0 flex-1 ltr:mr-2 rtl:ml-2"
+                >Email *</label
+              >
+              <div class="w-2/3">
+                <input
+                  id="email"
+                  type="text"
+                  placeholder="Enter email"
+                  class="form-input"
+                  formControlName="email"
+                />
+                <ng-container *ngIf="isSubmit && form.controls['email'].errors">
+                  <p class="mt-1 text-danger">Please fill the email</p>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="mt-4 flex items-center">
+              <label class="mb-0 flex-1 ltr:mr-2 rtl:ml-2"> Projects </label>
+              <div class="w-2/3">
+                <ng-select
+                  id="projects"
+                  [items]="projects"
+                  formControlName="projects"
+                  bindLabel="name"
+                  bindValue="project_id"
+                  [multiple]="true"
+                  [clearable]="false"
+                  placeholder="Select an option"
+                  class="custom-multiselect"
+                >
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="my-6 border-[#e0e6ed] dark:border-[#1b2e4b]" />
+        <div class="flex flex-wrap justify-between px-4">
+          <button type="submit" class="btn btn-primary gap-2">
+            <icon-save class="shrink-0 ltr:mr-2 rtl:ml-2" />
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

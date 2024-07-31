@@ -1,0 +1,68 @@
+<div>
+  <ul class="flex space-x-2 rtl:space-x-reverse">
+    <li>
+      <a routerLink="/url" class="text-primary hover:underline">URLs</a>
+    </li>
+    <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+      <span>Edit - {{ urlId }}</span>
+    </li>
+  </ul>
+  <form class="space-y-5" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="flex pt-5 flex-col gap-2.5 xl:flex-row">
+      <div class="panel flex-1 px-0 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+        <div class="flex flex-wrap justify-between px-4">
+          <div class="w-full">
+            <div
+              class="flex items-center"
+              [ngClass]="
+                isSubmit
+                  ? form.controls['url'].errors
+                    ? 'has-error'
+                    : 'has-success'
+                  : ''
+              "
+            >
+              <label for="url" class="mb-0 flex-1 ltr:mr-2 rtl:ml-2"
+                >URL *</label
+              >
+              <div class="w-2/3">
+                <input
+                  id="url"
+                  type="text"
+                  placeholder="Enter URL"
+                  class="form-input"
+                  formControlName="url"
+                />
+                <ng-container *ngIf="isSubmit && form.controls['url'].errors">
+                  <p class="mt-1 text-danger">Please fill the url</p>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="mt-4 flex items-center">
+              <label for="description" class="mb-0 flex-1 ltr:mr-2 rtl:ml-2"
+                >Description</label
+              >
+              <div class="w-2/3">
+                <input
+                  id="description"
+                  type="text"
+                  placeholder="Enter Description"
+                  class="form-input"
+                  formControlName="description"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="my-6 border-[#e0e6ed] dark:border-[#1b2e4b]" />
+        <div class="flex flex-wrap justify-between px-4">
+          <button type="submit" class="btn btn-primary gap-2">
+            <icon-save class="shrink-0 ltr:mr-2 rtl:ml-2" />
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

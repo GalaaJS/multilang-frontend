@@ -1,0 +1,121 @@
+<div>
+  <ul class="flex space-x-2 rtl:space-x-reverse">
+    <li>
+      <a routerLink="/translation" class="text-primary hover:underline">Translations</a>
+    </li>
+    <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+      <span>Add</span>
+    </li>
+  </ul>
+  <form class="space-y-5" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="flex pt-5 flex-col gap-2.5 xl:flex-row">
+      <div class="panel flex-1 px-0 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+        <div class="flex flex-wrap justify-between px-4">
+          <div class="w-full">
+            <div
+              class="flex items-center"
+              [ngClass]="
+                isSubmit
+                  ? form.controls['str_english'].errors
+                    ? 'has-error'
+                    : 'has-success'
+                  : ''
+              "
+            >
+              <label for="str_english" class="mb-0 flex-1 ltr:mr-2 rtl:ml-2">
+                English *
+              </label>
+              <div class="w-2/3">
+                <input
+                  id="str_english"
+                  type="text"
+                  placeholder="Enter English"
+                  class="form-input"
+                  formControlName="str_english"
+                />
+                <ng-container
+                  *ngIf="isSubmit && form.controls['str_english'].errors"
+                >
+                  <p class="mt-1 text-danger">Please fill the English</p>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="mt-4 flex items-center">
+              <label for="str_french" class="mb-0 flex-1 ltr:mr-2 rtl:ml-2">
+                French
+              </label>
+              <div class="w-2/3">
+                <input
+                  id="str_french"
+                  type="text"
+                  placeholder="Enter French"
+                  class="form-input"
+                  formControlName="str_french"
+                />
+              </div>
+            </div>
+
+            <div class="mt-4 flex items-center">
+              <label for="str_spanish" class="mb-0 flex-1 ltr:mr-2 rtl:ml-2">
+                Spanish
+              </label>
+              <div class="w-2/3">
+                <input
+                  id="str_spanish"
+                  type="text"
+                  placeholder="Enter Spanish"
+                  class="form-input"
+                  formControlName="str_spanish"
+                />
+              </div>
+            </div>
+
+            <div class="mt-4 flex items-center">
+              <label class="mb-0 flex-1 ltr:mr-2 rtl:ml-2"> URLs </label>
+              <div class="w-2/3">
+                <ng-select
+                  id="urls"
+                  [items]="urls"
+                  formControlName="urls"
+                  bindLabel="name"
+                  bindValue="id"
+                  [multiple]="true"
+                  [clearable]="false"
+                  placeholder="Select an option"
+                  class="custom-multiselect"
+                >
+                </ng-select>
+              </div>
+            </div>
+
+            <div class="mt-4 flex items-center">
+              <label class="mb-0 flex-1 ltr:mr-2 rtl:ml-2"> Projects </label>
+              <div class="w-2/3">
+                <ng-select
+                  id="project_ids"
+                  [items]="projects"
+                  formControlName="project_ids"
+                  bindLabel="name"
+                  bindValue="id"
+                  [multiple]="true"
+                  [clearable]="false"
+                  placeholder="Select an option"
+                  class="custom-multiselect"
+                >
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="my-6 border-[#e0e6ed] dark:border-[#1b2e4b]" />
+        <div class="flex flex-wrap justify-between px-4">
+          <button type="submit" class="btn btn-primary gap-2">
+            <icon-save class="shrink-0 ltr:mr-2 rtl:ml-2" />
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
